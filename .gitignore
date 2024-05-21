@@ -1,0 +1,8 @@
+*.pyc
+*.sqlite3
+_psql
+*.log
+*.env*
+**/portfolio-media
+_app/static/
+

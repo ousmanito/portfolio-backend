@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+redis = "*"
+hiredis = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
+djangorestframework = "*"
+django-rest-knox = "*"
+django-cors-headers = "*"
+pillow = "*"
+django-storages = {extras = ["azure"], version = "*"}
+django-dotenv = "*"
+python-dotenv = "*"
+
+[dev-packages]
+black = "*"
+mypy = "*"
+flake8 = "*"
+flake8-quotes = "*"
+
