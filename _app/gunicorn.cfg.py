@@ -1,4 +1,7 @@
-import multiprocessing
+workers = 3
+max_requests = 1000
+max_requests_jitter = 50
 
-bind = ":8000"
-workers = multiprocessing.cpu_count() * 2 + 1
+log_file = "-"
+accesslog = "-"
+access_log_format = '[gunicorn-access-log] "%(r)s" %(s)s %(b)s'

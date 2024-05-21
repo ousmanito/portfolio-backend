@@ -15,5 +15,5 @@ echo "Starting app server..."
 python -m gunicorn portfolio.wsgi:application \
   --bind 0.0.0.0:8000 \
   --log-level info \
-  --config python:deployment.gunicorn_config \
+  --config python:gunicorn.cfg \
   --forwarded-allow-ips "*"
