@@ -5,11 +5,11 @@ echo "Migrating database..."
 # python3.9 manage.py flush --noinput
 # python3.9 manage.py migrate portfolio zero --noinput
 
-python3.9 manage.py makemigrations --noinput
-python3.9 manage.py migrate --noinput
+python manage.py makemigrations --noinput
+python manage.py migrate --noinput
 
 echo "Create cache table..."
-python3.9 manage.py createcachetable
+python manage.py createcachetable
 
 echo "Creating superuser..."
 
@@ -17,12 +17,12 @@ DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
 DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
 DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
 
-python3.9 manage.py createsuperuser \
+python manage.py createsuperuser \
   --email $DJANGO_SUPERUSER_EMAIL \
   --noinput || true
 
 echo "Collecting static files..."
-python3.9 manage.py collectstatic -i rest_framework -i flags --noinput --clear
+python manage.py collectstatic -i rest_framework -i flags --noinput --clear
 
 echo "Starting app server..."
 python -m gunicorn portfolio.wsgi:application \
