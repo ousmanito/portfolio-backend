@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "0.0.0.0",
     "portfolio-backend-orcin.vercel.app",
+    "portfolio-production-bde8.up.railway.app"
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
