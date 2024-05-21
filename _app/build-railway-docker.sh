@@ -1,19 +1,32 @@
 #!/bin/sh
 
-echo "Collecting static files.."
-python manage.py collectstatic --noinput
+echo "Migrating database..."
+# EN CAS DE PB - HARD RESET
+# python3.9 manage.py flush --noinput
+# python3.9 manage.py migrate portfolio zero --noinput
 
-if [ "$RUN_MIGRATIONS" = "True" ]; then
-  echo "Running migrations..."
-  until python manage.py migrate; do
-    echo "Waiting for db to be ready..."
-    sleep 2
-  done
-fi
+python3.9 manage.py makemigrations --noinput
+python3.9 manage.py migrate --noinput
+
+echo "Create cache table..."
+python3.9 manage.py createcachetable
+
+echo "Creating superuser..."
+
+DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+
+python3.9 manage.py createsuperuser \
+  --email $DJANGO_SUPERUSER_EMAIL \
+  --noinput || true
+
+echo "Collecting static files..."
+python3.9 manage.py collectstatic -i rest_framework -i flags --noinput --clear
 
 echo "Starting app server..."
 python -m gunicorn portfolio.wsgi:application \
   --bind 0.0.0.0:8000 \
   --log-level info \
-  --config python:gunicorn.cfg \
+  --config gunicorn.cfg.py \
   --forwarded-allow-ips "*"
