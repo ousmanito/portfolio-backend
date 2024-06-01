@@ -1,0 +1,8 @@
+before_script:
+  - npm install
+
+publish:
+  image: node:12
+  stage: build
+  script:
+    - npx semantic-release
