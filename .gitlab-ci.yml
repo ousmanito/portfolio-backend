@@ -1,6 +1,17 @@
-include:
-  # 1: include the component
-  - component: gitlab.com/to-be-continuous/semantic-release/gitlab-ci-semrel@3.10.1
-    # 2: set/override component inputs
-    inputs:
-      changelog-enabled: true # ⚠ this is only an example
+image: node:latest
+stages:
+  - release
+
+before_script:
+  - npm run lint
+
+release:
+  stage: release
+  only:
+    - main
+    - next
+  script:
+    - echo "@doppelmutzi:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}" >> .npmrc
+    - npm i -g semantic-release @semantic-release/gitlab @semantic-release/changelog @semantic-release/git @semantic-release/npm @semantic-release/commit-analyzer conventional-changelog-conventionalcommits
+    - npx semantic-release --debug
