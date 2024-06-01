@@ -1,1 +1,1 @@
-{ "branches": ["dev"], "extends": "@semantic-release/gitlab-config", repositoryUrl: "git@gitlab.com:ousmanito/portfolio-backend.git" }
+{ "branches": ["dev"], "extends": "@semantic-release/gitlab-config" }
