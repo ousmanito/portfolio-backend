@@ -8,7 +8,6 @@ before_script:
 release:
   stage: build
   only:
-    - main
-    - next
+    - dev
   script:
     - npx semantic-release --debug
