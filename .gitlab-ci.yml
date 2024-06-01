@@ -1,8 +1,7 @@
-before_script:
-  - npm install
+include:
+  # 1: include the component
+  - component: gitlab.com/to-be-continuous/semantic-release/gitlab-ci-semrel@3.10.1
+    # 2: set/override component inputs
+    inputs:
+      changelog-enabled: true # ⚠ this is only an example
 
-publish:
-  image: node:latest
-  stage: build
-  script:
-    - npx semantic-release
