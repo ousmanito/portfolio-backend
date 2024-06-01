@@ -1,12 +1,12 @@
 image: node:latest
 stages:
-  - release
+  - build
 
 before_script:
   - npm i
 
 release:
-  stage: release
+  stage: build
   only:
     - main
     - next
