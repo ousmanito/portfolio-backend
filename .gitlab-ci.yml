@@ -4,4 +4,3 @@ include:
     # 2: set/override component inputs
     inputs:
       changelog-enabled: true # ⚠ this is only an example
-
