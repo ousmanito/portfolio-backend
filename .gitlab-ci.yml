@@ -3,7 +3,7 @@ stages:
   - release
 
 before_script:
-  - npm run lint
+  - npm i
 
 release:
   stage: release
