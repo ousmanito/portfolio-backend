@@ -2,13 +2,9 @@
   "name": "portfolio",
   "version": "0.0.0",
   "devDependencies": {
-    "@semantic-release/commit-analyzer": "*",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/gitlab": "^13.1.0",
+    "semantic-release": "^24.0.0",
     "@semantic-release/gitlab-config": "^14.0.1",
-    "@semantic-release/release-notes-generator": "*",
-    "cz-conventional-changelog": "^3.3.0",
-    "semantic-release": "^24.0.0"
+    "cz-conventional-changelog": "^3.3.0"
   },
   "config": {
     "commitizen": {
