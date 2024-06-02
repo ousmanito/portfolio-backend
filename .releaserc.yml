@@ -1,1 +1,14 @@
-{ "branches": ["dev"], "extends": "@semantic-release/gitlab-config", repositoryUrl: "git@gitlab.com:ousmanito/portfolio-backend.git" }
+{ 
+    "branches": ["dev"],
+    "extends": "@semantic-release/gitlab-config",
+   "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/gitlab",
+      {
+        "gitlabUrl": "https://gitlab.com"
+      }
+    ]
+    ]
+}
