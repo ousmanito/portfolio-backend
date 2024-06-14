@@ -171,7 +171,7 @@ AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")
 if os.getenv("PRODUCTION"):
     MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/portfolio-media/"
 else:
-    MEDIA_URL = "portfolio-media/"
+    MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "portfolio-media")
 
