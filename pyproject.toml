@@ -18,7 +18,6 @@ django-rest-knox = "*"
 django-cors-headers = "*"
 pillow = "*"
 django-storages = {extras = ["azure"], version = "*"}
-django-dotenv = "*"
 python-dotenv = "*"
 poetry-plugin-dotenv = "^0.5.3"
 
