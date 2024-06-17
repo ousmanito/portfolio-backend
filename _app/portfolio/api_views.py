@@ -123,6 +123,7 @@ class EducationViewSet(viewsets.ModelViewSet):
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all().order_by("order")
     serializer_class = ServiceSerializer
+    lookup_field = 'url'
 
 
 class ServiceDetailViewSet(viewsets.ModelViewSet):

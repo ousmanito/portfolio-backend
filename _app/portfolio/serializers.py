@@ -79,10 +79,10 @@ class EducationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ServiceSerializer(serializers.ModelSerializer):
+class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Service
-        fields = "__all__"
+        fields = ["id", "description", "details", "image", "title", "url"]
 
 
 class ServiceDetailSerializer(serializers.ModelSerializer):
@@ -97,7 +97,7 @@ class ExpertiseSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["id", "image", "title", "skill", "url"]
 
 
-class ProjetSerializer(serializers.ModelSerializer):
+class ProjetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Projet
-        fields = "__all__"
+        fields = ["id", "title", "short_description", "description", "skill", "url", "github"]
