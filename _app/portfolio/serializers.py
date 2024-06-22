@@ -82,7 +82,7 @@ class EducationSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Service
-        fields = ["id", "description", "details", "image", "title", "url"]
+        fields = ["id", "short_description", "description", "details", "image", "title", "url"]
 
 
 class ServiceDetailSerializer(serializers.ModelSerializer):
