@@ -37,15 +37,16 @@ class CommentSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-class BlogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Blog
-        fields = "__all__"
-
-
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
+        fields = "__all__"
+
+
+class BlogSerializer(serializers.ModelSerializer):
+    category = BlogCategorySerializer(many=True)
+    class Meta:
+        model = Blog
         fields = "__all__"
 
 
