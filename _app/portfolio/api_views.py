@@ -137,5 +137,5 @@ class ExpertiseViewSet(viewsets.ModelViewSet):
 
 
 class ProjetViewSet(viewsets.ModelViewSet):
-    queryset = Projet.objects.all().order_by("order")
+    queryset = Projet.objects.prefetch_related('skill').order_by("order")
     serializer_class = ProjetSerializer

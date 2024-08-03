@@ -98,7 +98,8 @@ class ExpertiseSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["id", "image", "title", "skill", "url"]
 
 
-class ProjetSerializer(serializers.HyperlinkedModelSerializer):
+class ProjetSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer(many=True)
     class Meta:
         model = Projet
         fields = ["id", "title", "short_description", "description", "skill", "url", "github"]
