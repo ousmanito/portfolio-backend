@@ -68,7 +68,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def create(self, request, *args, **kwargs):
-        print("POST data:", request.data)
         return super().create(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):

@@ -17,9 +17,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-for k, v in os.environ.items():
-    print(k, v, end="\n")
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
