@@ -14,15 +14,6 @@ from .models import (
     SoftSkill,
 )
 
-
-class OrderedTitleModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "order")
-    ordering = ("order", "id")
-
-class OrderedSkillModelAdmin(admin.ModelAdmin):
-    ordering = ("order", "id")
-
-
 admin.site.register(ServiceDetail)
 admin.site.register(Skill)
 admin.site.register(Projet)
