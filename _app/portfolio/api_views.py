@@ -132,7 +132,7 @@ class ServiceDetailViewSet(viewsets.ModelViewSet):
 
 
 class ExpertiseViewSet(viewsets.ModelViewSet):
-    queryset = Expertise.objects.all().order_by("order")
+    queryset = Expertise.objects.prefetch_related("skill").all().order_by("order")
     serializer_class = ExpertiseSerializer
 
 

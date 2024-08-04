@@ -92,7 +92,8 @@ class ServiceDetailSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ExpertiseSerializer(serializers.HyperlinkedModelSerializer):
+class ExpertiseSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer(many=True)
     class Meta:
         model = Expertise
         fields = ["id", "image", "title", "skill", "url"]
