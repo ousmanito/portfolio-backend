@@ -133,20 +133,20 @@ class Education(models.Model):
 
 
 class SoftSkill(models.Model):
-    title = models.ForeignKey(
+    skill = models.ForeignKey(
         Skill, related_name="skills", on_delete=models.CASCADE, null=True
     )
     order = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title.title
+        return self.skill.title
 
 
 class Language(models.Model):
-    title = models.ForeignKey(
+    skill = models.ForeignKey(
         Skill, related_name="languages", on_delete=models.CASCADE, null=True
     )
     order = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title.title
+        return self.skill.title

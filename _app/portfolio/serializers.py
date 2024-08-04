@@ -50,22 +50,23 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SoftSkillSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = SoftSkill
-        fields = ["id", "title", "url"]
-
-
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = "__all__"
 
+class SoftSkillSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer()
+    class Meta:
+        model = SoftSkill
+        fields = ["id", "skill"]
 
-class LanguageSerializer(serializers.HyperlinkedModelSerializer):
+
+class LanguageSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer()
     class Meta:
         model = Language
-        fields = ["id", "title", "url"]
+        fields = ["id", "skill"]
 
 
 class ExperienceSerializer(serializers.ModelSerializer):

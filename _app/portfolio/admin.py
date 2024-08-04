@@ -15,20 +15,23 @@ from .models import (
 )
 
 
-class ModelAdmin(admin.ModelAdmin):
+class OrderedTitleModelAdmin(admin.ModelAdmin):
     list_display = ("title", "order")
     ordering = ("order", "id")
 
+class OrderedSkillModelAdmin(admin.ModelAdmin):
+    ordering = ("order", "id")
 
-admin.site.register(ServiceDetail, ModelAdmin)
+
+admin.site.register(ServiceDetail, OrderedTitleModelAdmin)
 admin.site.register(Skill)
 admin.site.register(Projet)
-admin.site.register(SoftSkill, ModelAdmin)
-admin.site.register(Experience, ModelAdmin)
-admin.site.register(Education, ModelAdmin)
-admin.site.register(Language, ModelAdmin)
-admin.site.register(Expertise, ModelAdmin)
-admin.site.register(Service, ModelAdmin)
+admin.site.register(SoftSkill, OrderedSkillModelAdmin)
+admin.site.register(Experience, OrderedTitleModelAdmin)
+admin.site.register(Education, OrderedTitleModelAdmin)
+admin.site.register(Language, OrderedSkillModelAdmin)
+admin.site.register(Expertise, OrderedSkillModelAdmin)
+admin.site.register(Service, OrderedTitleModelAdmin)
 admin.site.register(Blog)
 admin.site.register(BlogCategory)
 admin.site.register(Comment)

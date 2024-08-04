@@ -96,7 +96,7 @@ class BlogViewSet(viewsets.ModelViewSet):
 
 
 class SoftSkillViewSet(viewsets.ModelViewSet):
-    queryset = SoftSkill.objects.all()
+    queryset = SoftSkill.objects.prefetch_related("skill").all().order_by("order")
     serializer_class = SoftSkillSerializer
 
 
@@ -106,7 +106,7 @@ class SkillViewSet(viewsets.ModelViewSet):
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
-    queryset = Language.objects.all().order_by("order")
+    queryset = Language.objects.all().prefetch_related("skill").order_by("order")
     serializer_class = LanguageSerializer
 
 
