@@ -8,3 +8,5 @@ _psql
 _app/staticfiles_build/
 _app/portfolio-media/
 
+
+migrations/

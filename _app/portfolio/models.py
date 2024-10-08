@@ -115,6 +115,8 @@ class Experience(models.Model):
     location = models.CharField(max_length=200, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
+    order = models.IntegerField(default=1)
+
 
     def __str__(self):
         return self.title
