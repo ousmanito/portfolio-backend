@@ -212,12 +212,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #         "LOCATION": f"redis://{os.getenv('REDIS_HOST')}:6379/1",
 #     }
 # }
-#
+
+
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-    }
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "KEY_FUNCTION": "django_tenants.cache.make_key",
+    },
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
