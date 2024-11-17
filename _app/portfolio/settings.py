@@ -34,8 +34,8 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
-    "portfolio-backend-orcin.vercel.app",
-    "portfolio-production-bde8.up.railway.app"
+     os.getenv("DJANGO_EXTERNAL_HOST"),
+     os.getenv("DJANGO_INTERNAL_HOST"),
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -51,8 +51,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3100",
     "http://127.0.0.1:3100",
     "http://0.0.0.0:3100",
-    "https://ousmanebathily.com",
-    "https://portfolio-backend-orcin.vercel.app",
+     os.getenv("FRONTEND_INTERNAL_HOST"),
+     os.getenv("FRONTEND_EXTERNAL_HOST"),
 ]
 
 # Application definition
@@ -77,7 +77,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
-    # "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
