@@ -51,7 +51,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3100",
     "http://127.0.0.1:3100",
     "http://0.0.0.0:3100",
-    f"http://{os.getenv('FRONTEND_INTERNAL_HOST')}",
+    f"http://{os.getenv('FRONTEND_INTERNAL_HOST')}:8080",
     f"https://{os.getenv('FRONTEND_EXTERNAL_HOST')}"
 ]
 
