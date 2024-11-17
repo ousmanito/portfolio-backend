@@ -217,7 +217,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "KEY_FUNCTION": "django_tenants.cache.make_key",
     },
 }
 
