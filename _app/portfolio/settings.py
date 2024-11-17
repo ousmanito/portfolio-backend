@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -41,6 +46,12 @@ ALLOWED_HOSTS = [
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") == "True"
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Lax"
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -48,11 +59,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://0.0.0.0:3000",
-    "http://localhost:3100",
-    "http://127.0.0.1:3100",
-    "http://0.0.0.0:3100",
     f"http://{os.getenv('FRONTEND_INTERNAL_HOST')}:8080",
     f"https://{os.getenv('FRONTEND_EXTERNAL_HOST')}",
+    f"https://{os.getenv("DJANGO_ADMIN_EXTERNAL_HOST")}",
 ]
 
 # Application definition
