@@ -10,9 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
-
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,11 +30,12 @@ SECRET_KEY = os.getenv(
 # APPEND_SLASH = False
 
 ALLOWED_HOSTS = [
+    "[::1]",
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
-     os.getenv("DJANGO_EXTERNAL_HOST"),
-     os.getenv("DJANGO_INTERNAL_HOST"),
+    os.getenv("DJANGO_EXTERNAL_HOST"),
+    os.getenv("DJANGO_INTERNAL_HOST"),
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -43,6 +43,11 @@ DEBUG = os.getenv("DEBUG", default=True)
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("X-FORWARDED-PROTO", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
@@ -52,7 +57,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3100",
     "http://0.0.0.0:3100",
     f"http://{os.getenv('FRONTEND_INTERNAL_HOST')}:8080",
-    f"https://{os.getenv('FRONTEND_EXTERNAL_HOST')}"
+    f"https://{os.getenv('FRONTEND_EXTERNAL_HOST')}",
 ]
 
 # Application definition
@@ -112,18 +117,15 @@ DATABASES = {
     "default": {
         "ENGINE": os.getenv("DJANGO_DB_ENGINE", "django.db.backends.sqlite3"),
         "NAME": os.getenv("DJANGO_DB_NAME", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.getenv("DJANGO_DB_USER"),
+        "PASSWORD": os.getenv("DJANGO_DB_PASSWORD"),
+        "HOST": os.getenv("DJANGO_DB_HOST"),
+        "PORT": os.getenv("DJANGO_DB_PORT"),
         "TEST": {
-            "NAME": "DJANGO_TEST_DB",
+            "NAME": os.getenv("DJANGO_DB_TEST_NAME", "TEST_DATABASE"),
         },
     }
 }
-
-if os.getenv("DOCKER_ENVIRONMENT") or os.getenv("PRODUCTION"):
-    db = DATABASES["default"]
-    db["USER"] = os.getenv("DJANGO_DB_USER")
-    db["PASSWORD"] = os.getenv("DJANGO_DB_PASSWORD")
-    db["HOST"] = os.getenv("DJANGO_DB_HOST")
-    db["PORT"] = os.getenv("DJANGO_DB_PORT")
 
 
 # Password validation
