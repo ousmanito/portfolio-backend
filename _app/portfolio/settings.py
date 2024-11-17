@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
-    os.getenv("DJANGO_ADMIN_EXTERNAL_HOST"),
+    os.getenv("DJANGO_CUSTOM_EXTERNAL_HOST"),
     os.getenv("DJANGO_EXTERNAL_HOST"),
     os.getenv("DJANGO_INTERNAL_HOST"),
 ]
@@ -54,7 +54,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://0.0.0.0:3000",
     f"http://{os.getenv('FRONTEND_INTERNAL_HOST')}:8080",
     f"https://{os.getenv('FRONTEND_EXTERNAL_HOST')}",
-    f"https://{os.getenv('DJANGO_ADMIN_EXTERNAL_HOST')}",
+    f"https://{os.getenv('DJANGO_CUSTOM_EXTERNAL_HOST')}",
 ]
 
 # Application definition
