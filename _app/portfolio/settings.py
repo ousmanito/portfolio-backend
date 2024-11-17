@@ -27,27 +27,22 @@ SECRET_KEY = os.getenv(
     "DJANGO_SECRET_KEY",
     default="@li16cr_r%h-lqe)w%5nkxxc!=*_v95#r5vqwfyy03+*%y4s3@",
 )
-# APPEND_SLASH = False
 
 ALLOWED_HOSTS = [
     "[::1]",
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
+    os.getenv("DJANGO_ADMIN_EXTERNAL_HOST"),
     os.getenv("DJANGO_EXTERNAL_HOST"),
     os.getenv("DJANGO_INTERNAL_HOST"),
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=True)
+DEBUG = os.getenv("DEBUG") == "True"
 
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ("X-FORWARDED-PROTO", "https")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
