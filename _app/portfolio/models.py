@@ -63,7 +63,6 @@ class Skill(models.Model):
 
 class ServiceDetail(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField(null=True)
     order = models.IntegerField(default=0)
 
     def __str__(self):
