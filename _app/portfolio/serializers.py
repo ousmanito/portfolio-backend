@@ -4,7 +4,6 @@ from .models import (
     BlogCategory,
     Comment,
     Education,
-    Expertise,
     Language,
     Mail,
     Projet,
@@ -45,6 +44,7 @@ class BlogCategorySerializer(serializers.ModelSerializer):
 
 class BlogSerializer(serializers.ModelSerializer):
     category = BlogCategorySerializer(many=True)
+
     class Meta:
         model = Blog
         fields = "__all__"
@@ -55,8 +55,10 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields = "__all__"
 
+
 class SoftSkillSerializer(serializers.ModelSerializer):
     skill = SkillSerializer()
+
     class Meta:
         model = SoftSkill
         fields = ["id", "skill"]
@@ -64,6 +66,7 @@ class SoftSkillSerializer(serializers.ModelSerializer):
 
 class LanguageSerializer(serializers.ModelSerializer):
     skill = SkillSerializer()
+
     class Meta:
         model = Language
         fields = ["id", "skill"]
@@ -81,27 +84,37 @@ class EducationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ServiceSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Service
-        fields = ["id", "short_description", "description", "details", "image", "title", "url"]
-
-
 class ServiceDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceDetail
         fields = "__all__"
 
 
-class ExpertiseSerializer(serializers.ModelSerializer):
-    skill = SkillSerializer(many=True)
+class ServiceSerializer(serializers.ModelSerializer):
+    details = ServiceDetailSerializer(many=True)
+
     class Meta:
-        model = Expertise
-        fields = ["id", "image", "title", "skill", "url"]
+        model = Service
+        fields = [
+            "id",
+            "description",
+            "details",
+            "image",
+            "title",
+        ]
 
 
 class ProjetSerializer(serializers.ModelSerializer):
     skill = SkillSerializer(many=True)
+
     class Meta:
         model = Projet
-        fields = ["id", "title", "short_description", "description", "skill", "url", "github"]
+        fields = [
+            "id",
+            "title",
+            "short_description",
+            "description",
+            "skill",
+            "url",
+            "github",
+        ]

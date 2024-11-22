@@ -13,7 +13,7 @@ class BlogCategory(models.Model):
     url = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Blog(models.Model):
@@ -26,7 +26,7 @@ class Blog(models.Model):
     url = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Comment(models.Model):
@@ -58,18 +58,7 @@ class Skill(models.Model):
     title = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.title
-
-
-class Expertise(models.Model):
-    title = models.CharField(max_length=200, null=True)
-    skill = models.ManyToManyField(Skill, related_name="expertises")
-    order = models.IntegerField(default=0)
-    image = models.FileField(upload_to="expertises/", null=True)
-    url = models.CharField(max_length=100, null=True, blank=True)
-
-    def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class ServiceDetail(models.Model):
@@ -78,20 +67,18 @@ class ServiceDetail(models.Model):
     order = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Service(models.Model):
     title = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
-    short_description = models.CharField(max_length=200, null=True)
     details = models.ManyToManyField(ServiceDetail)
     order = models.IntegerField(default=0)
     image = models.FileField(upload_to="services/", null=True)
-    url = models.CharField(max_length=100, null=True, unique=True)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Projet(models.Model):
@@ -104,7 +91,7 @@ class Projet(models.Model):
     skill = models.ManyToManyField(Skill)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Experience(models.Model):
@@ -117,9 +104,8 @@ class Experience(models.Model):
     end_date = models.DateField(null=True)
     order = models.IntegerField(default=1)
 
-
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Education(models.Model):
@@ -130,7 +116,7 @@ class Education(models.Model):
     order = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class SoftSkill(models.Model):

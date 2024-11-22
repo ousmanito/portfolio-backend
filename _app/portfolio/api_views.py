@@ -13,7 +13,6 @@ from .serializers import (
     SoftSkillSerializer,
     ExperienceSerializer,
     EducationSerializer,
-    ExpertiseSerializer,
     LanguageSerializer,
     ServiceSerializer,
     CommentSerializer,
@@ -23,7 +22,6 @@ from .models import (
     BlogCategory,
     Comment,
     Education,
-    Expertise,
     Mail,
     Projet,
     Service,
@@ -122,7 +120,7 @@ class EducationViewSet(viewsets.ModelViewSet):
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all().order_by("order")
     serializer_class = ServiceSerializer
-    lookup_field = 'url'
+    lookup_field = "url"
 
 
 class ServiceDetailViewSet(viewsets.ModelViewSet):
@@ -130,11 +128,6 @@ class ServiceDetailViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceDetailSerializer
 
 
-class ExpertiseViewSet(viewsets.ModelViewSet):
-    queryset = Expertise.objects.prefetch_related("skill").all().order_by("order")
-    serializer_class = ExpertiseSerializer
-
-
 class ProjetViewSet(viewsets.ModelViewSet):
-    queryset = Projet.objects.prefetch_related('skill').order_by("order")
+    queryset = Projet.objects.prefetch_related("skill").order_by("order")
     serializer_class = ProjetSerializer

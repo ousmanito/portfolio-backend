@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -29,7 +30,6 @@ from .api_views import (
     SkillViewSet,
     SoftSkillViewSet,
     ServiceViewSet,
-    ExpertiseViewSet,
     LanguageViewSet,
     BlogCategoryViewSet,
     decrement_comment_count,
@@ -40,7 +40,6 @@ from .api_views import (
 router = DefaultRouter()
 router.register(r"Experiences", ExperienceViewSet)
 router.register(r"Education", EducationViewSet)
-router.register(r"Expertises", ExpertiseViewSet)
 router.register(r"SoftSkills", SoftSkillViewSet)
 router.register(r"Langages", LanguageViewSet)
 router.register(r"Services", ServiceViewSet)

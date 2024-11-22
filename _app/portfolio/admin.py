@@ -4,7 +4,6 @@ from .models import (
     BlogCategory,
     Comment,
     Education,
-    Expertise,
     Language,
     Projet,
     Service,
@@ -21,7 +20,6 @@ admin.site.register(SoftSkill)
 admin.site.register(Experience)
 admin.site.register(Education)
 admin.site.register(Language)
-admin.site.register(Expertise)
 admin.site.register(Service)
 admin.site.register(Blog)
 admin.site.register(BlogCategory)
