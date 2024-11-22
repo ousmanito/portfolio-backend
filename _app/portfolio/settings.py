@@ -161,41 +161,17 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 STATIC_URL = "/static/"
 
-AZURE_ACCOUNT_NAME = "datafactorydjangostorage"
-AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")
-
-if os.getenv("PRODUCTION"):
-    MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/portfolio-media/"
-else:
-    MEDIA_URL = "/media/"
-
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "portfolio-media")
 
-default_storage = {"default": {"BACKEND": "", "OPTIONS": {}}}
-
-
-if os.getenv("PRODUCTION"):
-    default_storage["default"][
-        "BACKEND"
-    ] = "storages.backends.azure_storage.AzureStorage"
-    default_storage["default"]["OPTIONS"] = {
-        "azure_container": "portfolio-media",
-        "custom_domain": f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net",
-        "account_key": AZURE_ACCOUNT_KEY,
-        "account_name": AZURE_ACCOUNT_NAME,
-    }
-else:
-    default_storage["default"][
-        "BACKEND"
-    ] = "django.core.files.storage.FileSystemStorage"
-
-
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    }
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
 }
-STORAGES["default"] = default_storage["default"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
