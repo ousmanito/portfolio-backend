@@ -93,26 +93,12 @@ class Projet(models.Model):
         return str(self.title)
 
 
-class Experience(models.Model):
+class Event(models.Model):
     title = models.CharField(max_length=200, null=True)
-    client = models.CharField(max_length=200, null=True)
-    contract_type = models.CharField(max_length=200, null=True)
+    entity = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
-    location = models.CharField(max_length=200, null=True)
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-    order = models.IntegerField(default=1)
-
-    def __str__(self):
-        return str(self.title)
-
-
-class Education(models.Model):
-    title = models.CharField(max_length=200, null=True)
-    school_name = models.CharField(max_length=200, null=True)
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-    order = models.IntegerField(default=0)
+    date = models.DateField(null=True)
+    kind = models.CharField(max_length=200)
 
     def __str__(self):
         return str(self.title)

@@ -1,9 +1,10 @@
 from rest_framework import serializers
+
 from .models import (
     Blog,
     BlogCategory,
     Comment,
-    Education,
+    Event,
     Language,
     Mail,
     Projet,
@@ -11,7 +12,6 @@ from .models import (
     ServiceDetail,
     Skill,
     SoftSkill,
-    Experience,
 )
 
 
@@ -72,15 +72,9 @@ class LanguageSerializer(serializers.ModelSerializer):
         fields = ["id", "skill"]
 
 
-class ExperienceSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Experience
-        fields = "__all__"
-
-
-class EducationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Education
+        model = Event
         fields = "__all__"
 
 

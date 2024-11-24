@@ -14,32 +14,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+
 from .api_views import (
+    BlogCategoryViewSet,
     BlogViewSet,
     CommentViewSet,
-    EducationViewSet,
-    ExperienceViewSet,
+    EventViewSet,
+    LanguageViewSet,
     MailViewSet,
     ProjetViewSet,
     ServiceDetailViewSet,
+    ServiceViewSet,
     SkillViewSet,
     SoftSkillViewSet,
-    ServiceViewSet,
-    LanguageViewSet,
-    BlogCategoryViewSet,
     decrement_comment_count,
     increment_comment_count,
 )
 
-
 router = DefaultRouter()
-router.register(r"Experiences", ExperienceViewSet)
-router.register(r"Education", EducationViewSet)
+router.register(r"events", EventViewSet)
 router.register(r"SoftSkills", SoftSkillViewSet)
 router.register(r"Langages", LanguageViewSet)
 router.register(r"Services", ServiceViewSet)

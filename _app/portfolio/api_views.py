@@ -6,13 +6,12 @@ from rest_framework.views import status
 from .serializers import (
     BlogCategorySerializer,
     BlogSerializer,
+    EventSerializer,
     MailSerializer,
     ProjetSerializer,
     ServiceDetailSerializer,
     SkillSerializer,
     SoftSkillSerializer,
-    ExperienceSerializer,
-    EducationSerializer,
     LanguageSerializer,
     ServiceSerializer,
     CommentSerializer,
@@ -21,14 +20,13 @@ from .models import (
     Blog,
     BlogCategory,
     Comment,
-    Education,
+    Event,
     Mail,
     Projet,
     Service,
     ServiceDetail,
     Skill,
     SoftSkill,
-    Experience,
     Language,
 )
 
@@ -107,14 +105,9 @@ class LanguageViewSet(viewsets.ModelViewSet):
     serializer_class = LanguageSerializer
 
 
-class ExperienceViewSet(viewsets.ModelViewSet):
-    queryset = Experience.objects.all().order_by("-start_date")
-    serializer_class = ExperienceSerializer
-
-
-class EducationViewSet(viewsets.ModelViewSet):
-    queryset = Education.objects.all().order_by("order")
-    serializer_class = EducationSerializer
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all().order_by("-date")
+    serializer_class = EventSerializer
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
