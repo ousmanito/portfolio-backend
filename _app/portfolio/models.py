@@ -19,7 +19,7 @@ class BlogCategory(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     category = models.ManyToManyField(BlogCategory)
-    resume = models.CharField(max_length=200)
+    resume = models.TextField()
     body = models.TextField()
     creation_date = models.DateField(default=datetime.now)
     image = models.FileField(upload_to="blog/")
