@@ -74,7 +74,7 @@ class Service(models.Model):
     description = models.TextField(null=True)
     details = models.ManyToManyField(ServiceDetail)
     order = models.IntegerField(default=0)
-    image = models.FileField(upload_to="services/", null=True)
+    image = models.ImageField(upload_to="services/", null=True)
 
     def __str__(self):
         return str(self.title)

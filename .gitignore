@@ -4,9 +4,5 @@ node_modules
 _psql
 *.log
 *.env*
-**/portfolio-media
 _app/staticfiles_build/
-_app/portfolio-media/
-
-
-migrations/
+# **/portfolio-media
