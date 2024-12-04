@@ -1,9 +1,0 @@
-{ 
-    "branches": ["dev"],
-    "extends": "@semantic-release/gitlab-config",
-   "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/gitlab",
-    ]
-}

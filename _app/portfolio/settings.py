@@ -77,7 +77,6 @@ INSTALLED_APPS = [
 if ENVIRONMENT == "production":
     INSTALLED_APPS.append("django_minio_backend")
 
-print(INSTALLED_APPS)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -171,24 +170,19 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "portfolio-media")
 
 
+STORAGES = {
+    "default": {"BACKEND": "django_minio_backend.models.MinioBackend"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+
 if ENVIRONMENT == "production":
-    STORAGES = {
-        "default": {
-            "BACKEND": "django_minio_backend.models.MinioBackend",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
+    STORAGES["default"]["BACKEND"] = "django_minio_backend.models.MinioBackend"
 else:
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-    }
+    STORAGES["default"]["BACKEND"] = "django.core.files.storage.FileSystemStorage"
+
 
 MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "localhost:9000")
 MINIO_USE_HTTPS = os.getenv("MINIO_USE_HTTPS") == "True" or False
