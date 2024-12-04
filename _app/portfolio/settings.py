@@ -45,6 +45,7 @@ ALLOWED_HOSTS = [
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") == "True"
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -72,6 +73,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "storages",
 ]
+
+if ENVIRONMENT == "production":
+    INSTALLED_APPS.append("django_minio_backend")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -164,14 +168,41 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "portfolio-media")
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+
+if ENVIRONMENT == "production":
+    STORAGES = {
+        "default": {
+            "BACKEND": "django_minio_backend.models.MinioBackend",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+    }
+
+MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "localhost:9000")
+MINIO_USE_HTTPS = os.getenv("MINIO_USE_HTTPS") == "True" or False
+MINIO_EXTERNAL_ENDPOINT = os.getenv("MINIO_EXTERNAL_ENDPOINT") or MINIO_ENDPOINT
+MINIO_EXTERNAL_ENDPOINT_USE_HTTPS = (
+    os.getenv("MINIO_EXTERNAL_ENDPOINT_USE_HTTPS") == "True" or False
+)
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "")
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "")
+MINIO_BUCKET_CHECK_ON_SAVE = True
+MINIO_CONSISTENCY_CHECK_ON_START = False
+MINIO_MEDIA_FILES_BUCKET = os.getenv("MINIO_MEDIA_FILES_BUCKET", "portfolio-media")
+MINIO_PUBLIC_BUCKETS = [MINIO_MEDIA_FILES_BUCKET]
+
+print(os.environ)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
