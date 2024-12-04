@@ -5,4 +5,4 @@ _psql
 *.log
 *.env*
 _app/staticfiles_build/
-# **/portfolio-media
+**/portfolio-media

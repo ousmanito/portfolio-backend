@@ -1,7 +1,9 @@
-from django.db import models
 from datetime import datetime
 
+from django.conf import settings
+from django.db import models
 from django.db.models.expressions import F
+from django_minio_backend import MinioBackend
 
 
 class Mail(models.Model):
@@ -22,7 +24,10 @@ class Blog(models.Model):
     resume = models.TextField()
     body = models.TextField()
     creation_date = models.DateField(default=datetime.now)
-    image = models.FileField(upload_to="blog/")
+    image = models.ImageField(
+        upload_to="blog/",
+        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+    )
     url = models.CharField(max_length=200)
 
     def __str__(self):
@@ -74,7 +79,10 @@ class Service(models.Model):
     description = models.TextField(null=True)
     details = models.ManyToManyField(ServiceDetail)
     order = models.IntegerField(default=0)
-    image = models.ImageField(upload_to="services/", null=True)
+    image = models.ImageField(
+        upload_to="services/",
+        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+    )
 
     def __str__(self):
         return str(self.title)
