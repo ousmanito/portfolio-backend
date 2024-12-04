@@ -176,6 +176,7 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
 
 if ENVIRONMENT == "production":
