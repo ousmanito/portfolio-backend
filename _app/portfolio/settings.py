@@ -171,7 +171,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "portfolio-media")
 
 
 STORAGES = {
-    "default": {"BACKEND": "django_minio_backend.models.MinioBackend"},
+    "default": {},
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
