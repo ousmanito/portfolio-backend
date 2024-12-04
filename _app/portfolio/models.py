@@ -27,6 +27,7 @@ class Blog(models.Model):
     image = models.ImageField(
         upload_to="blog/",
         storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+        null=True,
     )
     url = models.CharField(max_length=200)
 
@@ -82,6 +83,7 @@ class Service(models.Model):
     image = models.ImageField(
         upload_to="services/",
         storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+        null=True,
     )
 
     def __str__(self):
