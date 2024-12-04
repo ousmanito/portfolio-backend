@@ -77,6 +77,8 @@ INSTALLED_APPS = [
 if ENVIRONMENT == "production":
     INSTALLED_APPS.append("django_minio_backend")
 
+print(INSTALLED_APPS)
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -200,8 +202,6 @@ MINIO_BUCKET_CHECK_ON_SAVE = True
 MINIO_CONSISTENCY_CHECK_ON_START = False
 MINIO_MEDIA_FILES_BUCKET = os.getenv("MINIO_MEDIA_FILES_BUCKET", "portfolio-media")
 MINIO_PUBLIC_BUCKETS = [MINIO_MEDIA_FILES_BUCKET]
-
-print(os.environ)
 
 
 # Default primary key field type
