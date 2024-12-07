@@ -1,17 +1,14 @@
 from rest_framework import serializers
 
 from .models import (
-    Blog,
+    BlogPost,
     BlogCategory,
-    Comment,
-    Event,
-    Language,
+    BlogPostComment,
+    LifeEvent,
     Mail,
-    Projet,
+    Project,
     Service,
-    ServiceDetail,
     Skill,
-    SoftSkill,
 )
 
 
@@ -25,7 +22,7 @@ class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
 
     class Meta:
-        model = Comment
+        model = BlogPostComment
         fields = "__all__"
 
     def get_replies(self, obj):
@@ -46,7 +43,7 @@ class BlogSerializer(serializers.ModelSerializer):
     category = BlogCategorySerializer(many=True)
 
     class Meta:
-        model = Blog
+        model = BlogPost
         fields = "__all__"
 
 
@@ -56,36 +53,14 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SoftSkillSerializer(serializers.ModelSerializer):
-    skill = SkillSerializer()
-
+class LifeEventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SoftSkill
-        fields = ["id", "skill"]
-
-
-class LanguageSerializer(serializers.ModelSerializer):
-    skill = SkillSerializer()
-
-    class Meta:
-        model = Language
-        fields = ["id", "skill"]
-
-
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = "__all__"
-
-
-class ServiceDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ServiceDetail
+        model = LifeEvent
         fields = "__all__"
 
 
 class ServiceSerializer(serializers.ModelSerializer):
-    details = ServiceDetailSerializer(many=True)
+    details = SkillSerializer(many=True)
 
     class Meta:
         model = Service
@@ -98,17 +73,17 @@ class ServiceSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProjetSerializer(serializers.ModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     skill = SkillSerializer(many=True)
 
     class Meta:
-        model = Projet
+        model = Project
         fields = [
             "id",
             "title",
             "short_description",
             "description",
-            "skill",
+            "skills",
             "url",
             "github",
         ]

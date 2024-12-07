@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
@@ -25,36 +26,28 @@ from .api_views import (
     BlogViewSet,
     CommentViewSet,
     EventViewSet,
-    LanguageViewSet,
     MailViewSet,
     ProjetViewSet,
-    ServiceDetailViewSet,
     ServiceViewSet,
-    SkillViewSet,
-    SoftSkillViewSet,
     decrement_comment_count,
     increment_comment_count,
 )
 
 router = DefaultRouter()
-router.register(r"events", EventViewSet)
-router.register(r"SoftSkills", SoftSkillViewSet)
-router.register(r"Langages", LanguageViewSet)
-router.register(r"Services", ServiceViewSet)
-router.register(r"Skills", SkillViewSet)
-router.register(r"Projets", ProjetViewSet)
-router.register(r"ServiceDetails", ServiceDetailViewSet)
+router.register(r"life_events", EventViewSet)
+router.register(r"services", ServiceViewSet)
+router.register(r"projects", ProjetViewSet)
 router.register(r"blog", BlogViewSet)
-router.register(r"blog-details", BlogCategoryViewSet)
+router.register(r"blog_categories", BlogCategoryViewSet)
 router.register(r"mail", MailViewSet)
 router.register(r"comments", CommentViewSet)
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path("api/increment_comment_count/", increment_comment_count),
     path("api/decrement_comment_count/", decrement_comment_count),
-]
+)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -6,28 +6,22 @@ from rest_framework.views import status
 from .serializers import (
     BlogCategorySerializer,
     BlogSerializer,
-    EventSerializer,
+    LifeEventSerializer,
     MailSerializer,
-    ProjetSerializer,
-    ServiceDetailSerializer,
+    ProjectSerializer,
     SkillSerializer,
-    SoftSkillSerializer,
-    LanguageSerializer,
     ServiceSerializer,
     CommentSerializer,
 )
 from .models import (
-    Blog,
+    BlogPost,
     BlogCategory,
-    Comment,
-    Event,
+    BlogPostComment,
+    LifeEvent,
     Mail,
-    Projet,
+    Project,
     Service,
-    ServiceDetail,
     Skill,
-    SoftSkill,
-    Language,
 )
 
 
@@ -35,7 +29,7 @@ from .models import (
 def increment_comment_count(request):
     comment_id = request.data.get("comment_id")
     try:
-        comment = Comment.objects.get(id=comment_id)
+        comment = BlogPostComment.objects.get(id=comment_id)
         comment.increment_count()
         return Response({"count": comment.count}, status=status.HTTP_200_OK)
     except Exception:
@@ -46,7 +40,7 @@ def increment_comment_count(request):
 def decrement_comment_count(request):
     comment_id = request.data.get("comment_id")
     try:
-        comment = Comment.objects.get(id=comment_id)
+        comment = BlogPostComment.objects.get(id=comment_id)
         if comment.count > 0:
             comment.decrement_count()
         return Response({"count": comment.count}, status=status.HTTP_200_OK)
@@ -60,7 +54,7 @@ class MailViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all().order_by("-creation_date")
+    queryset = BlogPostComment.objects.all().order_by("-creation_date")
     serializer_class = CommentSerializer
 
     def create(self, request, *args, **kwargs):
@@ -85,14 +79,9 @@ class BlogCategoryViewSet(viewsets.ModelViewSet):
 
 
 class BlogViewSet(viewsets.ModelViewSet):
-    queryset = Blog.objects.prefetch_related("category").all()
+    queryset = BlogPost.objects.prefetch_related("category").all()
     serializer_class = BlogSerializer
     lookup_field = "url"
-
-
-class SoftSkillViewSet(viewsets.ModelViewSet):
-    queryset = SoftSkill.objects.prefetch_related("skill").all().order_by("order")
-    serializer_class = SoftSkillSerializer
 
 
 class SkillViewSet(viewsets.ModelViewSet):
@@ -100,14 +89,9 @@ class SkillViewSet(viewsets.ModelViewSet):
     serializer_class = SkillSerializer
 
 
-class LanguageViewSet(viewsets.ModelViewSet):
-    queryset = Language.objects.all().prefetch_related("skill").order_by("order")
-    serializer_class = LanguageSerializer
-
-
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all().order_by("-date")
-    serializer_class = EventSerializer
+    queryset = LifeEvent.objects.all().order_by("-date")
+    serializer_class = LifeEventSerializer
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -116,11 +100,6 @@ class ServiceViewSet(viewsets.ModelViewSet):
     lookup_field = "url"
 
 
-class ServiceDetailViewSet(viewsets.ModelViewSet):
-    queryset = ServiceDetail.objects.all().order_by("order")
-    serializer_class = ServiceDetailSerializer
-
-
 class ProjetViewSet(viewsets.ModelViewSet):
-    queryset = Projet.objects.prefetch_related("skill").order_by("order")
-    serializer_class = ProjetSerializer
+    queryset = Project.objects.prefetch_related("skill").order_by("order")
+    serializer_class = ProjectSerializer

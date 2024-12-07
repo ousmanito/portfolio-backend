@@ -1,25 +1,21 @@
 from django.contrib import admin
 
 from .models import (
-    Blog,
+    BlogPost,
     BlogCategory,
-    Comment,
-    Event,
-    Language,
-    Projet,
+    BlogPostComment,
+    LifeEvent,
+    Project,
     Service,
-    ServiceDetail,
     Skill,
-    SoftSkill,
 )
+from modeltranslation.admin import TranslationAdmin
 
-admin.site.register(ServiceDetail)
-admin.site.register(Skill)
-admin.site.register(Projet)
-admin.site.register(SoftSkill)
-admin.site.register(Event)
-admin.site.register(Language)
-admin.site.register(Service)
-admin.site.register(Blog)
-admin.site.register(BlogCategory)
-admin.site.register(Comment)
+
+admin.site.register(Service, TranslationAdmin)
+admin.site.register(Skill, TranslationAdmin)
+admin.site.register(Project, TranslationAdmin)
+admin.site.register(LifeEvent, TranslationAdmin)
+admin.site.register(BlogPost, TranslationAdmin)
+admin.site.register(BlogCategory, TranslationAdmin)
+admin.site.register(BlogPostComment)

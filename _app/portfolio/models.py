@@ -4,10 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models.expressions import F
 from django_minio_backend import MinioBackend
-
-
-class Mail(models.Model):
-    email = models.CharField(max_length=400, unique=True)
+from rest_framework.fields import MinValueValidator
 
 
 class BlogCategory(models.Model):
@@ -18,7 +15,7 @@ class BlogCategory(models.Model):
         return str(self.title)
 
 
-class Blog(models.Model):
+class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     category = models.ManyToManyField(BlogCategory)
     resume = models.TextField()
@@ -35,8 +32,10 @@ class Blog(models.Model):
         return str(self.title)
 
 
-class Comment(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="comments")
+class BlogPostComment(models.Model):
+    blog = models.ForeignKey(
+        BlogPost, on_delete=models.CASCADE, related_name="comments"
+    )
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     content = models.TextField()
@@ -60,50 +59,7 @@ class Comment(models.Model):
         return f"Commentaire de {self.first_name} {self.last_name} sur {self.blog}"
 
 
-class Skill(models.Model):
-    title = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return str(self.title)
-
-
-class ServiceDetail(models.Model):
-    title = models.CharField(max_length=200)
-    order = models.IntegerField(default=0)
-
-    def __str__(self):
-        return str(self.title)
-
-
-class Service(models.Model):
-    title = models.CharField(max_length=200, null=True)
-    description = models.TextField(null=True)
-    details = models.ManyToManyField(ServiceDetail)
-    order = models.IntegerField(default=0)
-    image = models.ImageField(
-        upload_to="services/",
-        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
-        null=True,
-    )
-
-    def __str__(self):
-        return str(self.title)
-
-
-class Projet(models.Model):
-    title = models.CharField(max_length=200, null=True)
-    short_description = models.CharField(max_length=200, null=True)
-    description = models.TextField(null=True)
-    order = models.IntegerField(default=0)
-    url = models.CharField(max_length=300, null=True, blank=True)
-    github = models.CharField(max_length=300, null=True, blank=True)
-    skill = models.ManyToManyField(Skill)
-
-    def __str__(self):
-        return str(self.title)
-
-
-class Event(models.Model):
+class LifeEvent(models.Model):
     title = models.CharField(max_length=200, null=True)
     entity = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
@@ -114,21 +70,40 @@ class Event(models.Model):
         return str(self.title)
 
 
-class SoftSkill(models.Model):
-    skill = models.ForeignKey(
-        Skill, related_name="skills", on_delete=models.CASCADE, null=True
-    )
-    order = models.IntegerField(default=0)
+class Skill(models.Model):
+    title = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.skill.title
+        return str(self.title)
 
 
-class Language(models.Model):
-    skill = models.ForeignKey(
-        Skill, related_name="languages", on_delete=models.CASCADE, null=True
+class Service(models.Model):
+    title = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
+    details = models.ManyToManyField(Skill)
+    order = models.PositiveIntegerField(validators=[MinValueValidator(limit_value=1)])
+    image = models.ImageField(
+        upload_to="services/",
+        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+        null=True,
     )
-    order = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.skill.title
+        return str(self.title)
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=200, null=True)
+    short_description = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
+    order = models.PositiveIntegerField(validators=[MinValueValidator(limit_value=1)])
+    url = models.CharField(max_length=300, null=True, blank=True)
+    github = models.CharField(max_length=300, null=True, blank=True)
+    skills = models.ManyToManyField(Skill)
+
+    def __str__(self):
+        return str(self.title)
+
+
+class Mail(models.Model):
+    email = models.CharField(max_length=400, unique=True)
