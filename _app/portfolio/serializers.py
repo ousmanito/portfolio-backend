@@ -7,6 +7,7 @@ from .models import (
     LifeEvent,
     Mail,
     Project,
+    Resume,
     Service,
     Skill,
 )
@@ -71,6 +72,12 @@ class ServiceSerializer(serializers.ModelSerializer):
             "image",
             "title",
         ]
+
+
+class ResumeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resume
+        fields = "__all__"
 
 
 class ProjectSerializer(serializers.ModelSerializer):

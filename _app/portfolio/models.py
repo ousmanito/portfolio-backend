@@ -12,6 +12,13 @@ if settings.ENVIRONMENT == "production":
     file_storage = MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET)
 
 
+class Resume(models.Model):
+    file = models.FileField(
+        upload_to="resume/",
+        storage=file_storage,
+    )
+
+
 class BlogCategory(models.Model):
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200, unique=True)

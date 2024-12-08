@@ -9,6 +9,7 @@ from .serializers import (
     LifeEventSerializer,
     MailSerializer,
     ProjectSerializer,
+    ResumeSerializer,
     SkillSerializer,
     ServiceSerializer,
     CommentSerializer,
@@ -20,6 +21,7 @@ from .models import (
     LifeEvent,
     Mail,
     Project,
+    Resume,
     Service,
     Skill,
 )
@@ -97,6 +99,12 @@ class EventViewSet(viewsets.ModelViewSet):
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all().order_by("order")
     serializer_class = ServiceSerializer
+    lookup_field = "url"
+
+
+class ResumeViewSet(viewsets.ModelViewSet):
+    queryset = Resume.objects.all()
+    serializer_class = ResumeSerializer
     lookup_field = "url"
 
 

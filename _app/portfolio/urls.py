@@ -28,6 +28,7 @@ from .api_views import (
     EventViewSet,
     MailViewSet,
     ProjetViewSet,
+    ResumeViewSet,
     ServiceViewSet,
     decrement_comment_count,
     increment_comment_count,
@@ -36,6 +37,7 @@ from .api_views import (
 router = DefaultRouter()
 router.register(r"life_events", EventViewSet)
 router.register(r"services", ServiceViewSet)
+router.register(r"resumes", ResumeViewSet)
 router.register(r"projects", ProjetViewSet)
 router.register(r"blog", BlogViewSet)
 router.register(r"blog_categories", BlogCategoryViewSet)

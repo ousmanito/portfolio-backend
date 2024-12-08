@@ -6,6 +6,7 @@ from .models import (
     BlogPostComment,
     LifeEvent,
     Project,
+    Resume,
     Service,
     Skill,
 )
@@ -19,3 +20,4 @@ admin.site.register(LifeEvent, TranslationAdmin)
 admin.site.register(BlogPost, TranslationAdmin)
 admin.site.register(BlogCategory, TranslationAdmin)
 admin.site.register(BlogPostComment)
+admin.site.register(Resume)
