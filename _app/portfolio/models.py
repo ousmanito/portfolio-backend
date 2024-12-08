@@ -17,7 +17,7 @@ class BlogCategory(models.Model):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
-    category = models.ManyToManyField(BlogCategory)
+    categories = models.ManyToManyField(BlogCategory)
     resume = models.TextField()
     body = models.TextField()
     creation_date = models.DateField(default=datetime.now)

@@ -79,7 +79,7 @@ class BlogCategoryViewSet(viewsets.ModelViewSet):
 
 
 class BlogViewSet(viewsets.ModelViewSet):
-    queryset = BlogPost.objects.prefetch_related("category").all()
+    queryset = BlogPost.objects.prefetch_related("categories").all()
     serializer_class = BlogSerializer
     lookup_field = "url"
 
@@ -101,5 +101,5 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
 
 class ProjetViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.prefetch_related("skill").order_by("order")
+    queryset = Project.objects.prefetch_related("skills").order_by("order")
     serializer_class = ProjectSerializer
