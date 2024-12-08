@@ -74,7 +74,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    skill = SkillSerializer(many=True)
+    skills = SkillSerializer(many=True)
 
     class Meta:
         model = Project
