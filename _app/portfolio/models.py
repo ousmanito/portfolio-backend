@@ -6,6 +6,11 @@ from django.db.models.expressions import F
 from django_minio_backend import MinioBackend
 from rest_framework.fields import MinValueValidator
 
+file_storage = None
+
+if settings.ENVIRONMENT == "production":
+    file_storage = MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET)
+
 
 class BlogCategory(models.Model):
     title = models.CharField(max_length=200)
@@ -23,7 +28,7 @@ class BlogPost(models.Model):
     creation_date = models.DateField(default=datetime.now)
     image = models.ImageField(
         upload_to="blog/",
-        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+        storage=file_storage,
         null=True,
     )
     url = models.CharField(max_length=200)
@@ -84,7 +89,7 @@ class Service(models.Model):
     order = models.PositiveIntegerField(validators=[MinValueValidator(limit_value=1)])
     image = models.ImageField(
         upload_to="services/",
-        storage=MinioBackend(bucket_name=settings.MINIO_MEDIA_FILES_BUCKET),
+        storage=file_storage,
         null=True,
     )
 
