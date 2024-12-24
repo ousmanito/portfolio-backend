@@ -24,14 +24,11 @@ from rest_framework.routers import DefaultRouter
 from .api_views import (
     BlogCategoryViewSet,
     BlogViewSet,
-    CommentViewSet,
     EventViewSet,
     MailViewSet,
     ProjetViewSet,
     ResumeViewSet,
     ServiceViewSet,
-    decrement_comment_count,
-    increment_comment_count,
 )
 
 router = DefaultRouter()
@@ -42,13 +39,10 @@ router.register(r"projects", ProjetViewSet)
 router.register(r"blog", BlogViewSet)
 router.register(r"blog_categories", BlogCategoryViewSet)
 router.register(r"mail", MailViewSet)
-router.register(r"comments", CommentViewSet)
 
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("api/increment_comment_count/", increment_comment_count),
-    path("api/decrement_comment_count/", decrement_comment_count),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

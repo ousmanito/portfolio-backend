@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import (
     BlogPost,
     BlogCategory,
-    BlogPostComment,
     LifeEvent,
     Mail,
     Project,
@@ -17,21 +16,6 @@ class MailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mail
         fields = "__all__"
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    replies = serializers.SerializerMethodField()
-
-    class Meta:
-        model = BlogPostComment
-        fields = "__all__"
-
-    def get_replies(self, obj):
-        replies = obj.replies.all().order_by("creation_date")
-        serializer = CommentSerializer(
-            replies, many=True, read_only=True, context=self.context
-        )
-        return serializer.data
 
 
 class BlogCategorySerializer(serializers.ModelSerializer):

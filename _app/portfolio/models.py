@@ -44,33 +44,6 @@ class BlogPost(models.Model):
         return str(self.title)
 
 
-class BlogPostComment(models.Model):
-    blog = models.ForeignKey(
-        BlogPost, on_delete=models.CASCADE, related_name="comments"
-    )
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    content = models.TextField()
-    creation_date = models.DateTimeField(default=datetime.now)
-    count = models.PositiveIntegerField(default=0)
-    parent = models.ForeignKey(
-        "self", on_delete=models.CASCADE, related_name="replies", null=True
-    )
-
-    def increment_count(self):
-        self.count = F("count") + 1
-        self.save()
-        self.refresh_from_db()
-
-    def decrement_count(self):
-        self.count = F("count") - 1
-        self.save()
-        self.refresh_from_db()
-
-    def __str__(self):
-        return f"Commentaire de {self.first_name} {self.last_name} sur {self.blog}"
-
-
 class LifeEvent(models.Model):
     title = models.CharField(max_length=200, null=True)
     entity = models.CharField(max_length=200, null=True)
