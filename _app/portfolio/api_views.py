@@ -36,7 +36,9 @@ class BlogCategoryViewSet(viewsets.ModelViewSet):
 
 
 class BlogViewSet(viewsets.ModelViewSet):
-    queryset = BlogPost.objects.prefetch_related("categories").all()
+    queryset = (
+        BlogPost.objects.prefetch_related("categories").all().order_by("-creation_date")
+    )
     serializer_class = BlogSerializer
     lookup_field = "url"
 
